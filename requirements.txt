@@ -1,0 +1,7 @@
+setuptools >= 21.0.0
+flask-marshmallow==0.13.0
+flask-cors==3.0.9
+flask-restful
+flask
+google-cloud-logging
+#google-auth
