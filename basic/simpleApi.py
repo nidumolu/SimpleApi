@@ -1,12 +1,13 @@
 from config import logger
 from flask import Flask,request,jsonify
 from flask_restful import Resource, Api
+
 # The data to log
-text = 'Hello, world!'
+text = 'SimpleApi: Hello, world!'
 
 # Writes the log entry
-logger.log_text(text)
-print('Logged: {}'.format(text))
+logger.log_text(text, severity='INFO')
+print('SimpleApi: p Logged: {}'.format(text))
 
 app = Flask(__name__)
 api = Api(app)
@@ -16,7 +17,7 @@ class ApiController(Resource):
     
     @app.route('/hello', methods=['GET'])
     def get_hello():
-        logger.log_text("SimpleApi: Inside HelloWorld method")
+        logger.log_text("SimpleApi: Inside HelloWorld method", severity='INFO')
         print('SimpleApi: p {}'.format("Inside HelloWorld method"))
         return {'hello': 'world'}
     
@@ -36,14 +37,14 @@ class ApiController(Resource):
                 'done': False
             }
         ]
-        logger.log_text("SimpleApi: Inside tasks method")
+        logger.log_text("SimpleApi: Inside tasks method", severity='INFO')
         print('SimpleApi: p {}'.format("Inside tasks method"))
         return jsonify(tasks)
     
     @app.route("/square", methods=['GET', 'POST'])
     def get_square(): 
-        logger.log_text("SimpleApi: Inside square method")
-        print('SimpleApi: p {}'.format("Inside tasks method"))
+        logger.log_text("SimpleApi: Inside square method", severity='INFO')
+        print('SimpleApi: p {}'.format("Inside square method"))
         number = request.args.get('number')
         return jsonify({'square': int(number)**2}) 
     
@@ -51,7 +52,7 @@ class ApiController(Resource):
     def postYourName():
         content = request.json
         name = content['name']
-        logger.log_text("SimpleApi: Inside postYourName method, your name :"+name)
+        logger.log_text("SimpleApi: Inside postYourName method, your name :"+name, severity='INFO')
         print('SimpleApi: p {}'.format("Inside postYourName method, your name :"+name))
         return "Hi  %s !" %name
 
